@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('admin/terapeutas', 'TerapeutaController@create');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
