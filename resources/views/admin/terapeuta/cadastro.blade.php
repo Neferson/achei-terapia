@@ -13,26 +13,15 @@
         <h1>Step 1</h1>
 
         <div class="mb-4 mt-4">
-            {{-- <img src="user.png" alt=""> --}}
-            <button
-                class="btn btn-success"
-                type="button"
-                name="chooseFile"
-                id="chooseFile"
-            >
-                Escolher arquivo
-            </button>
 
-            <p>Nenhum arquivo selecionado</p>
+            <form class="uploadImage">
+                <input type="file" class="upload" required id="fileInput">
+            </form>
 
-            <button
-                class="btn btn-success"
-                type="button"
-                name="changeImage"
-                id="changeImage"
-            >
-                Alterar Imagem
-            </button>
+            <div>
+            <img class="imagem" id="image" src="" alt="Sua imagem" width="150" height="200">
+            </div>
+
         </div>
 
         <input class="check"
@@ -198,6 +187,25 @@
 
 <script>
 
+    $("#fileInput").change(function (event) {
+        var reader = new FileReader();
+        $(reader).load(function (event) {
+            $("#image").attr("src", event.target.result);
+        });
+        reader.readAsDataURL(event.target.files[0]);
+    });
+
+    (function(){
+
+        const leitorDeArquivos = new FileReader(),
+            uploadImage = document.querySelector('.uploadImage');
+
+        uploadImage.addEventListener('submit', function(submit){
+            submit.preventDefault();
+        })
+    });
+
+
     $("#whatsApp").mask("(00) 00000-0000");
     $("#cep").mask("00000-000");
 
@@ -221,7 +229,7 @@
                     document.getElementById("city").value = data.localidade;
                     document.getElementById("state").value = data.uf;
                 } else {
-                   msgCepNotFound();
+                   msgCepNotFound(cep);
                 }
                 return response;
             }).catch(error => {
@@ -306,7 +314,7 @@
         });
     };
 
-    function msgCepNotFound() {
+    function msgCepNotFound(cep) {
         swal({
             icon: "error",
             text: `O CEP ${cep} não foi encontrado!`,
@@ -327,32 +335,32 @@
     var currentTab = 0; // Current tab is set to be the first tab (0)
     showTab(currentTab); // Display the current tab
 
-    function showTab(n) {
+    function showTab(item) {
     // This function will display the specified tab of the form ...
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
+    var table = document.getElementsByClassName("tab");
+    table[item].style.display = "block";
     // ... and fix the Previous/Next buttons:
-    if (n == 0) {
+    if (item == 0) {
         document.getElementById("prevBtn").style.display = "none";
     } else {
         document.getElementById("prevBtn").style.display = "inline";
     }
-    if (n == (x.length - 1)) {
+    if (item == (table.length - 1)) {
         document.getElementById("nextBtn").innerHTML = "Submit";
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
     // ... and run a function that displays the correct step indicator:
-    fixStepIndicator(n)
+    fixStepIndicator(item)
     }
 
-    function nextPrev(n) {
+    function nextPrev(item) {
     // This function will figure out which tab to display
-    var x = document.getElementsByClassName("tab");
+    var table = document.getElementsByClassName("tab");
     // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !validateForm()) return false;
+    if (item == 1 && !validateForm()) return false;
 
-    // Verificação de preenchimento
+    // Verificação de preenchimento de campos mascarados
 
     if (currentTab === 2) {
         let whatsApp = $("#whatsApp").val()
@@ -372,11 +380,11 @@
     }
 
     // Hide the current tab:
-    x[currentTab].style.display = "none";
+    table[currentTab].style.display = "none";
     // Increase or decrease the current tab by 1:
-    currentTab = currentTab + n;
+    currentTab = currentTab + item;
     // if you have reached the end of the form... :
-    if (currentTab >= x.length) {
+    if (currentTab >= table.length) {
         //...the form gets submitted:
         document.getElementById("regForm").submit();
         return false;
@@ -387,15 +395,15 @@
 
     function validateForm() {
     // This function deals with validation of the form fields
-    var x, y, i, valid = true;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByClassName("check");
-    var inputTabs = x[currentTab].getElementsByTagName("input");
+    var table, selected, i, valid = true;
+    table = document.getElementsByClassName("tab");
+    selected = table[currentTab].getElementsByClassName("check");
+    var inputTabs = table[currentTab].getElementsByTagName("input");
 
     // // A loop that checks every input field in the current tab:
-    for (i = 0; i < y.length; i++) {
-        if (y[i].value == "") {
-            y[i].className += " invalid";
+    for (i = 0; i < selected.length; i++) {
+        if (selected[i].value == "") {
+            selected[i].className += " invalid";
             valid = false;
         }
     }
@@ -413,14 +421,14 @@
     return valid; // return the valid status
     }
 
-    function fixStepIndicator(n) {
+    function fixStepIndicator(item) {
     // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
+    var i, table = document.getElementsByClassName("step");
+    for (i = 0; i < table.length; i++) {
+        table[i].className = table[i].className.replace(" active", "");
     }
     //... and adds the "active" class to the current step:
-    x[n].className += " active";
+    table[item].className += " active";
     }
 </script>
 
@@ -430,6 +438,9 @@
 
 <style>
 
+    .upload {
+        border: none;
+    }
     .sizeWindow {
         max-width: 800px;
     }
