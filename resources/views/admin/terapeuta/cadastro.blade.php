@@ -1,183 +1,187 @@
-@extends('admin.layouts.main')
+@extends('partials.topBar')
+
+{{-- @extends('admin.layouts.main') --}}
+
+@section('title', 'Cadastro de Terapeutas')
 
 @section('content')
 
 <form class="" id="regForm" action="" method="get">
 
-<h1>Seu perfil de usuário</h1>
+    <h1>Seu perfil de usuário</h1>
 
-<!-- One "tab" for each step in the form: -->
-<section class="sizeWindow">
+    <!-- One "tab" for each step in the form: -->
+    <section class="sizeWindow">
 
-    <div class="tab"><h4>Dados pessoais</h4>
-        <h1>Step 1</h1>
+        <div class="tab"><h4>Dados pessoais</h4>
+            <h1>Step 1</h1>
 
-        <div class="mb-4 mt-4">
+            <div class="mb-4 mt-4">
 
-            <form class="uploadImage">
-                <input type="file" class="upload" required id="fileInput">
-            </form>
+                <form class="uploadImage">
+                    <input type="file" class="upload" required id="fileInput">
+                </form>
 
-            <div>
-            <img class="imagem" id="image" src="" alt="Sua imagem" width="150" height="200">
+                <div>
+                    <img src="/img/user.png" class="img-thumbnail" id="image" alt="Sua imagem" width="150" height="200">
+                </div>
+
             </div>
 
+            <input class="check"
+                placeholder="Nome completo" name="userName" id="userName" oninput="this.className = ''">
+            <span>Sexo:</p>
+            <div class="form-check">
+                <input class="form-check-input p-1" type="radio" name="radioSexo" id="radioSexoM" checked>
+                <label class="form-check-label" for="radioSexoM">Masculino</label>
+            </div>
+            <br>
+            <div class="form-check">
+                <input class="form-check-input p-1" type="radio" name="radioSexo" id="radioSexoF" >
+                <label class="form-check-label" for="radioSexoF">Feminino</label>
+            </div>
         </div>
 
-        <input class="check"
-            placeholder="Nome completo" name="userName" id="userName" oninput="this.className = ''">
-        <span>Sexo:</p>
-        <div class="form-check">
-            <input class="form-check-input p-1" type="radio" name="radioSexo" id="radioSexoM" checked>
-            <label class="form-check-label" for="radioSexoM">Masculino</label>
+        <div class="tab"><h4>Sobre o seu trabalho</h4>
+            <h1>Step 2</h1>
+
+            <p>Seu título principal
+            <input
+                class="check"
+                placeholder="Título..."
+                name="title"
+                id="title"
+                oninput="this.className = ''"
+            ></p>
+            <p>Como é o seu trabalho<input class="check" placeholder="Descrição..." name="description" id="description"  oninput="this.className = ''"></p>
+            <p>Vídeo de Apresentação<input placeholder="Link para o vídeo..." name="video" id="video"  oninput="this.className = ''"></p>
         </div>
-        <br>
-        <div class="form-check">
-            <input class="form-check-input p-1" type="radio" name="radioSexo" id="radioSexoF" >
-            <label class="form-check-label" for="radioSexoF">Feminino</label>
+
+        <div class="tab redesSociais"><h4>Redes Sociais e Dados de Contato</h4>
+            <h1>Step 3</h1>
+
+            <p>WhatsApp<input class="check" type="text" name="whatsApp" id="whatsApp" placeholder="(__) _____-_____" oninput="this.className = ''" onfocusout="checkWhatsApp()"></p>
+            <p>E-mail<input class="check" placeholder="E-mail" name="email" id="email"  oninput="this.className = ''"></p>
+            <p>Instagram<input placeholder="Instagram" name="instagram" id="instagram"  oninput="this.className = ''"></p>
+            <p>Facebook<input placeholder="Facebook" name="facebook" id="facebook"  oninput="this.className = ''"></p>
+            <p>LinkedIn<input placeholder="LinkedIn" name="linkedin" id="linkedin"  oninput="this.className = ''"></p>
+            <p>Twitter<input placeholder="Twitter" name="twitter" id="twitter"  oninput="this.className = ''"></p>
+            <p>YouTube<input placeholder="Link para YouTube" name="youtube" id="youtube"  oninput="this.className = ''"></p>
+            <p>Site<input placeholder="Site" name="site" id="site"  oninput="this.className = ''"></p>
+
+
         </div>
-    </div>
 
-    <div class="tab"><h4>Sobre o seu trabalho</h4>
-        <h1>Step 2</h1>
+        <div class="tab"><h4>Endereço de atendimento</h4>
+            <h1>Step 4</h1>
 
-        <p>Seu título principal
-        <input
-            class="check"
-            placeholder="Título..."
-            name="title"
-            id="title"
-            oninput="this.className = ''"
-        ></p>
-        <p>Como é o seu trabalho<input class="check" placeholder="Descrição..." name="description" id="description"  oninput="this.className = ''"></p>
-        <p>Vídeo de Apresentação<input placeholder="Link para o vídeo..." name="video" id="video"  oninput="this.className = ''"></p>
-    </div>
+            <p>CEP<input class="check" type="text" placeholder="_____-___" name="cep" id="cep" oninput="this.className = ''" onfocusout="searchCEP()"></p>
+            <p>Logradouro<input class="check" placeholder="rua, avenida, alameda, rodovia, etc." name="" id="street" oninput="this.className = ''"></p>
+            <p>Número<input class="check" placeholder="" name="number" id="number" oninput="this.className = ''"></p>
+            <p>Complemento<input placeholder="" name="complement" id="complement" oninput="this.className = ''"></p>
+            <p>Cidade<input class="check" placeholder="" name="city" id="city" oninput="this.className = ''" readonly></p>
+            <p>Estado<input class="check" placeholder="" name="state" id="state" oninput="this.className = ''"></p>
 
-    <div class="tab redesSociais"><h4>Redes Sociais e Dados de Contato</h4>
-        <h1>Step 3</h1>
-
-        <p>WhatsApp<input class="check" type="text" name="whatsApp" id="whatsApp" placeholder="(__) _____-_____" oninput="this.className = ''" onfocusout="checkWhatsApp()"></p>
-        <p>E-mail<input class="check" placeholder="E-mail" name="email" id="email"  oninput="this.className = ''"></p>
-        <p>Instagram<input placeholder="Instagram" name="instagram" id="instagram"  oninput="this.className = ''"></p>
-        <p>Facebook<input placeholder="Facebook" name="facebook" id="facebook"  oninput="this.className = ''"></p>
-        <p>LinkedIn<input placeholder="LinkedIn" name="linkedin" id="linkedin"  oninput="this.className = ''"></p>
-        <p>Twitter<input placeholder="Twitter" name="twitter" id="twitter"  oninput="this.className = ''"></p>
-        <p>YouTube<input placeholder="Link para YouTube" name="youtube" id="youtube"  oninput="this.className = ''"></p>
-        <p>Site<input placeholder="Site" name="site" id="site"  oninput="this.className = ''"></p>
-
-
-    </div>
-
-    <div class="tab"><h4>Endereço de atendimento</h4>
-        <h1>Step 4</h1>
-
-        <p>CEP<input class="check" type="text" placeholder="_____-___" name="cep" id="cep" oninput="this.className = ''" onfocusout="searchCEP()"></p>
-        <p>Logradouro<input class="check" placeholder="rua, avenida, alameda, rodovia, etc." name="" id="street" oninput="this.className = ''"></p>
-        <p>Número<input class="check" placeholder="" name="number" id="number" oninput="this.className = ''"></p>
-        <p>Complemento<input placeholder="" name="complement" id="complement" oninput="this.className = ''"></p>
-        <p>Cidade<input class="check" placeholder="" name="city" id="city" oninput="this.className = ''" readonly></p>
-        <p>Estado<input class="check" placeholder="" name="state" id="state" oninput="this.className = ''"></p>
-
-    </div>
-
-    <div class="tab"><h4>Áreas em que você atua</h4>
-        <h1>Step 5</h1>
-
-        <select name="area" id="area" style="width: 300px">
-            <option value="Valor 1" >Valor 1</option>
-            <option value="Valor 2" >Valor 2</option>
-            <option value="Valor 3" >Valor 3</option>
-            <option value="Valor 4" >Valor 4</option>
-        </select>
-
-        <table class="table" style="max-width: 500px">
-            <thead>
-                <tr>
-                    <td></td>
-                    <th scope="col">Área de atuação</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-
-    </div>
-
-    <div class="tab"><h4>Tratamentos que você oferece</h4>
-        <h1>Step 6</h1>
-
-        <select name="tratamentos" id="tratamentos" style="width: 300px">
-            <option value="Valor 1" >Valor 1</option>
-            <option value="Valor 2" >Valor 2</option>
-            <option value="Valor 3" >Valor 3</option>
-            <option value="Valor 4" >Valor 4</option>
-        </select>
-        <button class="btn btn-success m-md-4" type="button" name="btnOffers" id="btnOffers" onclick="addOffers()">Adicionar</button>
-
-        <table class="table" style="max-width: 500px">
-            <thead>
-                <tr>
-                    <td><input type="checkbox" id="allCheckBox"></td>
-                    <th scope="col">Tratamento escolhido</th>
-                    <td><button class="btn btn-danger" id="btnRemoveCheckBox" onclick="removeSelected">Excluir</button></td>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-
-    </div>
-
-    <div class="tab"><h4>Terapias que você pratica</h4>
-        <h1>Step 7</h1>
-
-        <select name="therapy" id="therapy" style="width: 300px">
-            <option value="Valor 1" >Valor 1</option>
-            <option value="Valor 2" >Valor 2</option>
-            <option value="Valor 3" >Valor 3</option>
-            <option value="Valor 4" >Valor 4</option>
-        </select>
-        <button class="btn btn-success m-md-4" type="button" name="btnTherapy" id="btnTherapy" onclick="addTherapy()">Adicionar</button>
-
-        <table class="table" >
-            <thead>
-                <tr>
-                    <th scope="col">Terapia</th>
-                    <th scope="col">Nível</th>
-                    <th scope="col">Alterar</th>
-                    <th scope="col">Apagar</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-
-    </div>
-
-    <div class="tab"><h4>Certificados</h4>
-        <h1>Step 8</h1>
-
-        <select name="select"></select>
-        <button class="btn btn-success m-md-4" type="button" name="btnCertificates" id="btnCertificates" onclick="addCertificates()">Adicionar</button>
-
-    </div>
-
-    <div style="overflow:auto;">
-        <div style="float:right;">
-            <button class="btn btn-success" type="button" name="prevBtn" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-            <button class="btn btn-success" type="button" name="nextBtn" id="nextBtn" onclick="nextPrev(1)">Next</button>
         </div>
-    </div>
 
-    <!-- Circles which indicates the steps of the form: -->
-    <div style="text-align:center;margin-top:40px;">
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-        <span class="step"></span>
-    </div>
-</section>
+        <div class="tab"><h4>Áreas em que você atua</h4>
+            <h1>Step 5</h1>
+
+            <select name="area" id="area" style="width: 300px">
+                <option value="Valor 1" >Valor 1</option>
+                <option value="Valor 2" >Valor 2</option>
+                <option value="Valor 3" >Valor 3</option>
+                <option value="Valor 4" >Valor 4</option>
+            </select>
+
+            <table class="table" style="max-width: 500px">
+                <thead>
+                    <tr>
+                        <td></td>
+                        <th scope="col">Área de atuação</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+        </div>
+
+        <div class="tab"><h4>Tratamentos que você oferece</h4>
+            <h1>Step 6</h1>
+
+            <select name="tratamentos" id="tratamentos" style="width: 300px">
+                <option value="Valor 1" >Valor 1</option>
+                <option value="Valor 2" >Valor 2</option>
+                <option value="Valor 3" >Valor 3</option>
+                <option value="Valor 4" >Valor 4</option>
+            </select>
+            <button class="btn btn-success m-md-4" type="button" name="btnOffers" id="btnOffers" onclick="addOffers()">Adicionar</button>
+
+            <table class="table" style="max-width: 500px">
+                <thead>
+                    <tr>
+                        <td><input type="checkbox" id="allCheckBox"></td>
+                        <th scope="col">Tratamento escolhido</th>
+                        <td><button class="btn btn-danger" id="btnRemoveCheckBox" onclick="removeSelected">Excluir</button></td>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+        </div>
+
+        <div class="tab"><h4>Terapias que você pratica</h4>
+            <h1>Step 7</h1>
+
+            <select name="therapy" id="therapy" style="width: 300px">
+                <option value="Valor 1" >Valor 1</option>
+                <option value="Valor 2" >Valor 2</option>
+                <option value="Valor 3" >Valor 3</option>
+                <option value="Valor 4" >Valor 4</option>
+            </select>
+            <button class="btn btn-success m-md-4" type="button" name="btnTherapy" id="btnTherapy" onclick="addTherapy()">Adicionar</button>
+
+            <table class="table" >
+                <thead>
+                    <tr>
+                        <th scope="col">Terapia</th>
+                        <th scope="col">Nível</th>
+                        <th scope="col">Alterar</th>
+                        <th scope="col">Apagar</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+        </div>
+
+        <div class="tab"><h4>Certificados</h4>
+            <h1>Step 8</h1>
+
+            <select name="select"></select>
+            <button class="btn btn-success m-md-4" type="button" name="btnCertificates" id="btnCertificates" onclick="addCertificates()">Adicionar</button>
+
+        </div>
+
+        <div style="overflow:auto;">
+            <div style="float:right;">
+                <button class="btn btn-success" type="button" name="prevBtn" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button class="btn btn-success" type="button" name="nextBtn" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            </div>
+        </div>
+
+        <!-- Circles which indicates the steps of the form: -->
+        <div style="text-align:center;margin-top:40px;">
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+            <span class="step"></span>
+        </div>
+    </section>
 </form>
 
 @endsection
