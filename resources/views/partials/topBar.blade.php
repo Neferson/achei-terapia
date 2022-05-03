@@ -5,18 +5,21 @@
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
 
         <div class="container">
-            <div class="col">
+            <div class="navbar-nav mr-auto ">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="/img/logo_acheiterapia.jpg" alt="" style="width: 160px">
                 </a>
             </div>
 
-            <div class="col navbar-nav mr-auto">
-                <span><b> Nome de Usuário aqui</b></span>
+            <div class="navbar-nav mr-auto">
+                <span><b> {{ auth()->user()->name }} </b></span>
             </div>
 
-            <div class="navbar-nav ml-auto col">
-                <button class="btn btn-success" type="button" onclick="userLogOut()" >Sair</button>
+            <div class="navbar-nav ml-auto ">
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button class="btn btn-success" type="submit" onclick="userLogOut()" >Sair</button>
+                </form>
             </div>
 
         </div>
@@ -28,7 +31,7 @@
 @section('scriptTopBar')
     <script>
 
-        // let nameTitle = 'João';
+        let nameTitle = 'João';
 
         function userLogOut() {
             // nameTitle = 'Maria'

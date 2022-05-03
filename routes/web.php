@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('admin/terapeutas', 'TerapeutaController@create');
+Route::get('admin/terapeutas', 'TerapeutaController@create')->middleware('auth');
 
 Auth::routes();
 

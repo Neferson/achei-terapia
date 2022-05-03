@@ -6,16 +6,14 @@
 
 @section('content')
 
-<form class="" id="regForm" action="" method="get">
+<form class="mt-4" id="regForm" action="" method="get">
 
     <h1>Seu perfil de usuário</h1>
 
     <!-- One "tab" for each step in the form: -->
-    <section class="sizeWindow">
+    <section class="sizeWindow ">
 
         <div class="tab"><h4>Dados pessoais</h4>
-            <h1>Step 1</h1>
-
             <div class="mb-4 mt-4">
 
                 <form class="uploadImage">
@@ -29,7 +27,7 @@
             </div>
 
             <input class="check"
-                placeholder="Nome completo" name="userName" id="userName" oninput="this.className = ''">
+                placeholder="Nome completo" name="userName" id="userName" oninput="this.className = ''" readonly value="{{ auth()->user()->name }}">
             <span>Sexo:</p>
             <div class="form-check">
                 <input class="form-check-input p-1" type="radio" name="radioSexo" id="radioSexoM" checked>
@@ -43,7 +41,6 @@
         </div>
 
         <div class="tab"><h4>Sobre o seu trabalho</h4>
-            <h1>Step 2</h1>
 
             <p>Seu título principal
             <input
@@ -58,10 +55,9 @@
         </div>
 
         <div class="tab redesSociais"><h4>Redes Sociais e Dados de Contato</h4>
-            <h1>Step 3</h1>
 
             <p>WhatsApp<input class="check" type="text" name="whatsApp" id="whatsApp" placeholder="(__) _____-_____" oninput="this.className = ''" onfocusout="checkWhatsApp()"></p>
-            <p>E-mail<input class="check" placeholder="E-mail" name="email" id="email"  oninput="this.className = ''"></p>
+            <p>E-mail<input class="check" placeholder="E-mail" name="email" id="email"  oninput="this.className = ''" readonly value=" {{ auth()->user()->email }} "></p>
             <p>Instagram<input placeholder="Instagram" name="instagram" id="instagram"  oninput="this.className = ''"></p>
             <p>Facebook<input placeholder="Facebook" name="facebook" id="facebook"  oninput="this.className = ''"></p>
             <p>LinkedIn<input placeholder="LinkedIn" name="linkedin" id="linkedin"  oninput="this.className = ''"></p>
@@ -73,19 +69,17 @@
         </div>
 
         <div class="tab"><h4>Endereço de atendimento</h4>
-            <h1>Step 4</h1>
 
             <p>CEP<input class="check" type="text" placeholder="_____-___" name="cep" id="cep" oninput="this.className = ''" onfocusout="searchCEP()"></p>
             <p>Logradouro<input class="check" placeholder="rua, avenida, alameda, rodovia, etc." name="" id="street" oninput="this.className = ''"></p>
             <p>Número<input class="check" placeholder="" name="number" id="number" oninput="this.className = ''"></p>
             <p>Complemento<input placeholder="" name="complement" id="complement" oninput="this.className = ''"></p>
             <p>Cidade<input class="check" placeholder="" name="city" id="city" oninput="this.className = ''" readonly></p>
-            <p>Estado<input class="check" placeholder="" name="state" id="state" oninput="this.className = ''"></p>
+            <p>Estado<input class="check" placeholder="" name="state" id="state" oninput="this.className = ''" readonly></p>
 
         </div>
 
         <div class="tab"><h4>Áreas em que você atua</h4>
-            <h1>Step 5</h1>
 
             <select name="area" id="area" style="width: 300px">
                 <option value="Valor 1" >Valor 1</option>
@@ -107,7 +101,6 @@
         </div>
 
         <div class="tab"><h4>Tratamentos que você oferece</h4>
-            <h1>Step 6</h1>
 
             <select name="tratamentos" id="tratamentos" style="width: 300px">
                 <option value="Valor 1" >Valor 1</option>
@@ -131,7 +124,6 @@
         </div>
 
         <div class="tab"><h4>Terapias que você pratica</h4>
-            <h1>Step 7</h1>
 
             <select name="therapy" id="therapy" style="width: 300px">
                 <option value="Valor 1" >Valor 1</option>
@@ -156,7 +148,6 @@
         </div>
 
         <div class="tab"><h4>Certificados</h4>
-            <h1>Step 8</h1>
 
             <select name="select"></select>
             <button class="btn btn-success m-md-4" type="button" name="btnCertificates" id="btnCertificates" onclick="addCertificates()">Adicionar</button>
@@ -165,8 +156,8 @@
 
         <div style="overflow:auto;">
             <div style="float:right;">
-                <button class="btn btn-success" type="button" name="prevBtn" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                <button class="btn btn-success" type="button" name="nextBtn" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                <button class="btn btn-success" type="button" name="prevBtn" id="prevBtn" onclick="nextPrev(-1)">Anterior</button>
+                <button class="btn btn-success" type="button" name="nextBtn" id="nextBtn" onclick="nextPrev(1)">Próximo</button>
             </div>
         </div>
 
@@ -350,9 +341,9 @@
         document.getElementById("prevBtn").style.display = "inline";
     }
     if (item == (table.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
+        document.getElementById("nextBtn").innerHTML = "Salvar";
     } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
+        document.getElementById("nextBtn").innerHTML = "Próximo";
     }
     // ... and run a function that displays the correct step indicator:
     fixStepIndicator(item)
@@ -464,6 +455,7 @@
     font-size: 17px;
     font-family: Raleway;
     border: 1px solid #aaaaaa;
+    border-radius: 0.25rem;
     }
 
     /* Mark input boxes that gets an error on validation: */
